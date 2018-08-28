@@ -11,6 +11,14 @@ int main()
     int opcion;
 
     do{
+        opcion=menu(numeroUno,numeroDos);
+
+        switch(opcion)
+        {
+        case 1:
+            numeroUno=ingresoNumero("ingrese un numero: ","ingrese un numero valido: ");
+            break;
+        }
 
     }while(respuesta='y');
     return 0;

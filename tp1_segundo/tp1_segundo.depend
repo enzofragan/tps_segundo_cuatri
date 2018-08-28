@@ -1,6 +1,15 @@
 # depslib dependency file v1.0
-1535497510 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp1_segundo\main.c
+1535497998 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp1_segundo\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	"funciones.h"
+
+1535498828 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp1_segundo\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
+1535498828 c:\users\administrador\desktop\tps_segundo_cuatri\tp1_segundo\funciones.h
 
