@@ -7,7 +7,12 @@ int main()
 {
     float numeroUno;
     float numeroDos;
-    char respuesta;
+    float suma;
+    float resta;
+    float mul;
+    float div;
+    float fact;
+    char respuesta='y';
     int opcion;
 
     do{
@@ -18,8 +23,20 @@ int main()
         case 1:
             numeroUno=ingresoNumero("ingrese un numero: ","ingrese un numero valido: ");
             break;
+        case 2:
+            numeroDos=ingresoNumero("ingrese un numero: ","ingrese un numero valido: ");
+            break;
+        case 3:
+            suma=sumar(numeroUno,numeroDos);
+            break;
+
+        case 9:
+            respuesta='n';
+            break;
         }
 
-    }while(respuesta='y');
+        system("cls");
+
+    }while(respuesta=='y');
     return 0;
 }

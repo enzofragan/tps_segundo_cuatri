@@ -2,7 +2,9 @@
 #define FUNCIONES_H_INCLUDED
 
 int menu(float ,float);
-
 float ingresoNumero(char (),char ());
-
+float getDec(float* );
+int esDecimal(char* );
+int valOpcion(int );
+float sumar(float ,float );
 #endif // FUNCIONES_H_INCLUDED
