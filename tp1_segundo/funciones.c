@@ -18,12 +18,9 @@ int menu(float numeroUno,float numeroDos)
     printf("8- Calcular todas las operacione\n");
     printf("9- Salir\n");
 
-    scanf("%d",&opcion);
-
-    while(valOpcion(opcion)==0)
+    while(getInt(&opcion)==-1)
     {
         printf("ingrese una opcion valida");
-        scanf("%d",&opcion);
     }
 
     return opcion;
@@ -88,18 +85,32 @@ int esDecimal(char* cadena)
     }
     return 1;
 }
-int valOpcion(int opcion)
+int getInt(int* pResultado)
 {
     int ret=-1;
-
-    if(opcion<0 && opcion>10)
+    char buffer[64];
+    scanf("%s",buffer);
+    if(esNumerica(buffer)==1)
     {
-        ret=0;
-    }
-    else
-    {
+        *pResultado = atoi(buffer);
         ret=1;
     }
-
     return ret;
+}
+
+int esNumerica(char* cadena)
+{
+    int i=0;
+    if(cadena!=NULL)
+    {
+        while(cadena[i]!='\0')
+        {
+            if(!(isdigit(cadena[i])))
+            {
+                return -1;
+            }///para validar numero
+            i++;
+        }
+    }
+    return 1;
 }
