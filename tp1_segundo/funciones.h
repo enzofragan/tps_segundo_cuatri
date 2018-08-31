@@ -3,10 +3,12 @@
 
 int menu(float,float);
 float ingresoNumero(char (),char ());
-float getDec(float* );
-int getInt(int* );
+float getDec(char [],char []);
+int getInt(char []);
+char getChar(char [],char []);
 int esDecimal(char* );
 int esNumerica(char* );
+int esLetra(char* );
 int valOpcion(int );
 float sumar(float,float );
 float restar(float,float );

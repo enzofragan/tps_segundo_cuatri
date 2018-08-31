@@ -18,10 +18,7 @@ int menu(float numeroUno,float numeroDos)
     printf("8- Calcular todas las operacione\n");
     printf("9- Salir\n");
 
-    while(getInt(&opcion)==-1)
-    {
-        printf("ingrese una opcion valida");
-    }
+    opcion=getInt("ingrese una opcion valida ");
 
     return opcion;
 }
@@ -31,12 +28,7 @@ float ingresoNumero(char mensaje(),char mensajeError())
 
     system("cls");
 
-    printf("%s",mensaje);
-
-    while(getDec(&numero)==-1)
-    {
-        printf("%s",mensajeError);
-    }
+    numero=getDec(mensaje,mensajeError);
 
     return numero;
 }
@@ -170,17 +162,23 @@ int todosOperadores(float numeroUno,float numeroDos)
     return ret;
 }
 
-float getDec(float* pNum)
+float getDec(char mensaje[],char error[])
 {
-    int ret=-1;
+    float aux;
     char buffer[64];
+    printf("%s",mensaje);
+    fflush(stdin);
     scanf("%s",buffer);
-    if(esDecimal(buffer)==1)
+    while(esDecimal(buffer)==-1)
     {
-        *pNum = atof(buffer);
-        ret=1;
+        printf("%s",error);
+        fflush(stdin);
+        scanf("%s",buffer);
     }
-    return ret;
+
+    aux = atof(buffer);
+
+    return aux;
 }
 
 int esDecimal(char* cadena)
@@ -193,23 +191,42 @@ int esDecimal(char* cadena)
             if(!(isdigit(cadena[i])) && cadena[i]!='.')
             {
                 return -1;
-            }///para validar numero
+            }
             i++;
         }
     }
     return 1;
 }
-int getInt(int* pResultado)
+int getInt(char error[])
 {
-    int ret=-1;
+    int aux;
     char buffer[64];
     scanf("%s",buffer);
-    if(esNumerica(buffer)==1)
+    while(esNumerica(buffer)==-1)
     {
-        *pResultado = atoi(buffer);
-        ret=1;
+        printf("%s",error);
+        fflush(stdin);
+        scanf("%s",buffer);
     }
-    return ret;
+    aux = atoi(buffer);
+    return aux;
+}
+
+char getChar(char mensaje[],char error[])
+{
+    char auxiliar;
+    char buffer[64];
+    printf("%s",mensaje);
+    fflush(stdin);
+    scanf("%s",buffer);
+    while(esLetra(buffer)==-1)
+    {
+        printf("%s",error);
+        fflush(stdin);
+        scanf("%s",buffer);
+    }
+    auxiliar=buffer;
+    return auxiliar;
 }
 
 int esNumerica(char* cadena)
@@ -223,6 +240,23 @@ int esNumerica(char* cadena)
             {
                 return -1;
             }///para validar numero
+            i++;
+        }
+    }
+    return 1;
+}
+
+int esLetra(char* cadena)
+{
+    int i=0;
+    if(cadena!=NULL)
+    {
+        while(cadena[i]!='\0')
+        {
+            if(!(isalpha(cadena[i])))
+            {
+                return -1;
+            }
             i++;
         }
     }

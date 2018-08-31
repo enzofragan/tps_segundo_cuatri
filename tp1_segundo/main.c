@@ -64,13 +64,11 @@ int main()
             break;
         case 9:
 
-            printf("desas salir? ");
-            fflush(stdin);
-            scanf("%c",&respuesta);
+            respuesta=getChar("desas continuar? ","ingrese un valor valido, desas continuar? ");
 
             while(respuesta!='y' && respuesta!='n')
             {
-                printf("ingrese un valor valido, desas salir? ");
+                printf("ingrese un valor valido, desas continuar? ");
                 fflush(stdin);
                 scanf("%c",&respuesta);
             }
