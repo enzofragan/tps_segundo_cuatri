@@ -5,17 +5,20 @@
 
 int main()
 {
-    float numeroUno;
-    float numeroDos;
+    float numeroUno=0;
+    float numeroDos=0;
     float suma;
     float resta;
     float mul;
     float div;
-    float fact;
+    float fact1;
+    float fact2;
+    int op;
     char respuesta='y';
     int opcion;
 
-    do{
+    do
+    {
         opcion=menu(numeroUno,numeroDos);
 
         switch(opcion)
@@ -29,14 +32,54 @@ int main()
         case 3:
             suma=sumar(numeroUno,numeroDos);
             break;
+        case 4:
+            resta=restar(numeroUno,numeroDos);
+            break;
+        case 5:
+            div=dividir(numeroUno,numeroDos);
+            break;
+        case 6:
+            mul=multiplicar(numeroUno,numeroDos);
+            break;
+        case 7:
+            fact1=factoresUno(numeroUno);
+            fact2=factoresDos(numeroDos);
 
+            system("cls");
+            printf("el factor del primer numero es %.2f\n",fact1);
+            system("pause");
+
+            system("cls");
+            printf("el factor del segundo numero es %.2f\n",fact2);
+            system("pause");
+            break;
+        case 8:
+            op=todosOperadores(numeroUno,numeroDos);
+            if(op==1)
+            {
+                system("cls");
+                printf("no se puede realizar por que falta ingresar valores\n");
+                system("pause");
+            }
+            break;
         case 9:
-            respuesta='n';
+
+            printf("desas salir? ");
+            fflush(stdin);
+            scanf("%c",&respuesta);
+
+            while(respuesta!='y' && respuesta!='n')
+            {
+                printf("ingrese un valor valido, desas salir? ");
+                fflush(stdin);
+                scanf("%c",&respuesta);
+            }
             break;
         }
 
         system("cls");
 
-    }while(respuesta=='y');
+    }
+    while(respuesta=='y');
     return 0;
 }
