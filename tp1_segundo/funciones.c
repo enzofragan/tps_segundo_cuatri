@@ -219,7 +219,7 @@ char getChar(char mensaje[],char error[])
     printf("%s",mensaje);
     fflush(stdin);
     scanf("%s",buffer);
-    while(esLetra(buffer)==-1)
+    while(esLetra(buffer)==-1 && buffer!='y' && buffer!='n')
     {
         printf("%s",error);
         fflush(stdin);
