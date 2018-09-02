@@ -14,7 +14,6 @@ float sumar(float,float );
 float restar(float,float );
 float multiplicar(float,float );
 float dividir(float,float );
-float factoresUno(float );
-float factoresDos(float );
+float factores(float );
 int todosOperadores(float,float );
 #endif // FUNCIONES_H_INCLUDED

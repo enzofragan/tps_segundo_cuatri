@@ -42,8 +42,8 @@ int main()
             mul=multiplicar(numeroUno,numeroDos);
             break;
         case 7:
-            fact1=factoresUno(numeroUno);
-            fact2=factoresDos(numeroDos);
+            fact1=factores(numeroUno);
+            fact2=factores(numeroDos);
 
             system("cls");
             printf("el factor del primer numero es %.2f\n",fact1);
