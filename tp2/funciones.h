@@ -16,7 +16,11 @@ typedef struct
 int initEmployees(eEmployee* ,int );
 int menu();
 int getInt(char []);
+char getString(char [],char [],char []);
+float getDec(char [],char []);
 int esNumerica(char* );
+int esLetra(char* );
+int esDecimal(char* );
 int buscarLibre(eEmployee [],int );
 int autoId(eEmployee [],int );
 int altaEmployees(eEmployee [],int );

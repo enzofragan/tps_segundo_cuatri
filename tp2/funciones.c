@@ -37,6 +37,18 @@ int buscarLibre(eEmployee empleados[],int tam)
     return ret;
 }
 
+int autoId(eEmployee empleados[],int tam)
+{
+    int i;
+    int id;
+
+    i=buscarLibre(empleados,tam);
+
+    id=i+1;
+
+    return id;
+}
+
 int menu()
 {
     int opcion;
@@ -74,6 +86,57 @@ int getInt(char error[])
     return aux;
 }
 
+char getString(char mensaje[],char error[],char caracter[])
+{
+    printf("%s",mensaje);
+    fflush(stdin);
+    gets(caracter);
+    while(esLetra(caracter)==-1)
+    {
+        printf("%s",error);
+        fflush(stdin);
+        gets(caracter);
+    }
+
+    return caracter;
+}
+
+float getDec(char mensaje[],char error[])
+{
+    float aux;
+    char buffer[64];
+    printf("%s",mensaje);
+    fflush(stdin);
+    scanf("%s",buffer);
+    while(esDecimal(buffer)==-1)
+    {
+        printf("%s",error);
+        fflush(stdin);
+        scanf("%s",buffer);
+    }
+
+    aux = atof(buffer);
+
+    return aux;
+}
+
+int esDecimal(char* cadena)
+{
+    int i=0;
+    if(cadena!=NULL)
+    {
+        while(cadena[i]!='\0')
+        {
+            if(!(isdigit(cadena[i])) && cadena[i]!='.')
+            {
+                return -1;
+            }
+            i++;
+        }
+    }
+    return 1;
+}
+
 int esNumerica(char* cadena)
 {
     int i=0;
@@ -91,10 +154,41 @@ int esNumerica(char* cadena)
     return 1;
 }
 
+int esLetra(char* cadena)
+{
+    int i=0;
+    if(cadena!=NULL)
+    {
+        while(cadena[i]!='\0')
+        {
+            if(!(isalpha(cadena[i])))
+            {
+                return -1;
+            }
+            i++;
+        }
+    }
+    return 1;
+}
+
 int altaEmployees(eEmployee empleados[],int tam)
 {
     int i;
     int id;
+    char nombre[51];
+    char apellido[51];
+    float salario;
+    int sector;
+    int ret=-1;
 
+    id=autoId(empleados,tam);
 
+    if(id>0)
+    {
+        getString("ingrese su nombre ","ingrese un nombra valido",nombre);
+        getString("ingrese su apellido ","ingrese un apellido valido",apellido);
+        salario=getDec("ingrese su salario ","ingrese un numero valido");
+        printf("ingrese un sector ");
+        sector=getInt("ingrese un sector valida ");
+    }
 }
