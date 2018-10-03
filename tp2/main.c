@@ -12,6 +12,7 @@ int main()
     char seguir='s';
     int opcion;
     int alta;
+    int mostrar;
 
     resultado=initEmployees(empleados,TAM);
 
@@ -25,6 +26,17 @@ int main()
             {
                 case 1:
                     alta=altaEmployees(empleados,TAM);
+                    if(alta>0)
+                    {
+                        printf("empleado guardado\n");
+                    }
+                    else
+                    {
+                        printf("error en ingresar empleado\n");
+                    }
+                    break;
+                case 4:
+                    mostrar=printEmployees(empleados,TAM);
                     break;
                 case 6:
                     seguir='n';

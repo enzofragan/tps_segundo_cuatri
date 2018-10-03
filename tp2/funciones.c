@@ -195,6 +195,8 @@ int altaEmployees(eEmployee empleados[],int tam)
         ret=addEmployee(empleados,tam,id,nombre,apellido,salario,sector);
 
     }
+
+    return ret;
 }
 
 int addEmployee(eEmployee* empleados, int len, int id, char name[],char lastName[],float salary,int sector)
@@ -213,11 +215,37 @@ int addEmployee(eEmployee* empleados, int len, int id, char name[],char lastName
             strcpy((empleados+i)->lastName,lastName);
             (empleados+i)->salary=salary;
             (empleados+i)->sector=sector;
+            (empleados+i)->isEmpty=FAL;
             ret=1;
+        }
+        else
+        {
+            printf("posicion erroronea\n");
         }
     }
 
     //printf("%d  %s  %s  %f  %d",(empleados+i)->id,(empleados+i)->name,(empleados+i)->lastName,(empleados+i)->salary,(empleados+i)->sector);
 
     return ret;
+}
+
+int mostrarEmpleado(eEmployee* empleados)
+{
+    printf(" %6d %9s %9s   %.2f %10d\n",empleados->id,empleados->name,empleados->lastName,empleados->salary,empleados->sector);
+}
+
+int printEmployees(eEmployee* empleados, int length)
+{
+    int i;
+
+    printf("%6s %10s %10s %8s %6s\n","ID","NOMBRE","APELLIDO","SALARIO","SECTOR");
+
+    for(i=0;i<length;i++)
+    {
+        if((empleados+i)->isEmpty==FAL)
+        {
+            mostrarEmpleado(empleados+i);
+        }
+    }
+    return 0;
 }
