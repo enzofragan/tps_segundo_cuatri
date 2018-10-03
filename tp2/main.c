@@ -20,10 +20,12 @@ int main()
 
     resultado=initEmployees(empleados,TAM);
 
+
     if(resultado==0)
     {
         do
         {
+
             opcion=menu();
 
             switch(opcion)
@@ -32,22 +34,34 @@ int main()
                     alta=altaEmployees(empleados,TAM);
                     if(alta>0)
                     {
-                        printf("empleado guardado\n");
+                        printf("empleado guardado\n\n");
                     }
                     else
                     {
-                        printf("error en ingresar empleado\n");
+                        printf("error en ingresar empleado\n\n");
                     }
                     break;
                 case 2:
                     modifi=modificarEmployees(empleados,TAM);
                     if(modifi>0)
                     {
-                        printf("modificacion completa\n");
+                        printf("modificacion completa\n\n");
+                    }
+                    else
+                    {
+                        printf("modificacion cancelada\n\n");
                     }
                     break;
                 case 3:
                     baja=bajaEmployees(empleados,TAM);
+                    if(baja>0)
+                    {
+                        printf("baja completa\n\n");
+                    }
+                    else
+                    {
+                        printf("baja cancelada\n\n");
+                    }
                     break;
                 case 4:
                     printf("orden ascendiente (1) o descendiente (0)");
@@ -56,7 +70,7 @@ int main()
                     mostrar=sortEmployees(empleados,TAM,orden);
                     if(mostrar<0)
                     {
-                        printf("debe ingresar un dato primero\n");
+                        printf("debe ingresar un dato primero\n\n");
                     }
                     break;
                 case 5:

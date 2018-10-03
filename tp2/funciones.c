@@ -200,18 +200,20 @@ int altaEmployees(eEmployee* empleados,int tam)
     int sector;
     int ret=-1;
 
+
     id=autoId(empleados,tam);
 
     if(id>0)
     {
-        getString("ingrese su nombre ","ingrese un nombra valido",nombre);
-        getString("ingrese su apellido ","ingrese un apellido valido",apellido);
-        salario=getDec("ingrese su salario ","ingrese un numero valido");
-        printf("ingrese un sector ");
+        getString("ingrese su nombre: ","ingrese un nombra valido ",nombre);
+        getString("ingrese su apellido: ","ingrese un apellido valido ",apellido);
+        salario=getDec("ingrese su salario: ","ingrese un numero valido ");
+        printf("ingrese un sector: ");
         sector=getInt("ingrese un sector valida ");
         ret=addEmployee(empleados,tam,id,nombre,apellido,salario,sector);
 
     }
+
 
     return ret;
 }
@@ -257,7 +259,8 @@ int modificarEmployees(eEmployee* empleados,int tam)
     int sector;
     int ret=-1;
 
-    printf("ingrese el id a buscar ");
+
+    printf("ingrese el id a buscar: ");
     aux=getInt("ingrese un id valido ");
 
     i=findEmployeeById(empleados,tam,aux);
@@ -277,29 +280,29 @@ int modificarEmployees(eEmployee* empleados,int tam)
 
         while(opcion>5)
         {
-            printf("ingrese una opcion valida ");
+            printf("ingrese una opcion valida: ");
             opcion=getInt("ingrese una opcion valida ");
         }
 
         switch(opcion)
         {
             case 1:
-                getString("ingrese nuevo nombre ","ingrese un nombra valido",nombre);
+                getString("ingrese nuevo nombre: ","ingrese un nombra valido ",nombre);
                 strcpy((empleados+i)->name,nombre);
                 ret=1;
                 break;
             case 2:
-                getString("ingrese nuevo apellido ","ingrese un apellido valido",apellido);
+                getString("ingrese nuevo apellido: ","ingrese un apellido valido ",apellido);
                 strcpy((empleados+i)->lastName,apellido);
                 ret=1;
                 break;
             case 3:
-                salario=getDec("ingrese nuevo salario ","ingrese un numero valido");
+                salario=getDec("ingrese nuevo salario: ","ingrese un numero valido ");
                 (empleados+i)->salary=salario;
                 ret=1;
                 break;
             case 4:
-                printf("ingrese nuevo sector ");
+                printf("ingrese nuevo sector: ");
                 sector=getInt("ingrese un sector valida ");
                 (empleados+i)->sector=sector;
                 ret=1;
@@ -315,6 +318,7 @@ int modificarEmployees(eEmployee* empleados,int tam)
     {
         printf("id no encotrado\n");
     }
+
     return ret;
 }
 
