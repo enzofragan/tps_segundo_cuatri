@@ -224,8 +224,95 @@ int addEmployee(eEmployee* empleados, int len, int id, char name[],char lastName
         }
     }
 
-    //printf("%d  %s  %s  %f  %d",(empleados+i)->id,(empleados+i)->name,(empleados+i)->lastName,(empleados+i)->salary,(empleados+i)->sector);
+    mostrarEmpleado(empleados+i);
 
+    return ret;
+}
+
+int modificarEmployees(eEmployee* empleados,int tam)
+{
+    int i;
+    int aux;
+    int opcion;
+    char nombre[51];
+    char apellido[51];
+    float salario;
+    int sector;
+    int ret=-1;
+
+    printf("ingrese el id a buscar ");
+    aux=getInt("ingrese un id valido ");
+
+    i=findEmployeeById(empleados,tam,aux);
+
+    if(i>=0)
+    {
+        mostrarEmpleado(empleados+i);
+
+        printf("que desea modificar?\n");
+        printf("1- nombre\n");
+        printf("2- apellido\n");
+        printf("3- salario\n");
+        printf("4- sector\n");
+        printf("5- nada\n");
+
+        opcion=getInt("ingrese una opcion valida ");
+
+        while(opcion>5)
+        {
+            printf("ingrese una opcion valida ");
+            opcion=getInt("ingrese una opcion valida ");
+        }
+
+        switch(opcion)
+        {
+            case 1:
+                getString("ingrese nuevo nombre ","ingrese un nombra valido",nombre);
+                strcpy((empleados+i)->name,nombre);
+                ret=1;
+                break;
+            case 2:
+                getString("ingrese nuevo apellido ","ingrese un apellido valido",apellido);
+                strcpy((empleados+i)->lastName,apellido);
+                ret=1;
+                break;
+            case 3:
+                salario=getDec("ingrese nuevo salario ","ingrese un numero valido");
+                (empleados+i)->salary=salario;
+                ret=1;
+                break;
+            case 4:
+                printf("ingrese nuevo sector ");
+                sector=getInt("ingrese un sector valida ");
+                (empleados+i)->sector=sector;
+                ret=1;
+                break;
+            case 5:
+                ret=1;
+                break;
+        }
+
+        mostrarEmpleado(empleados+i);
+    }
+    else
+    {
+        printf("id no encotrado\n");
+    }
+    return ret;
+}
+
+int findEmployeeById(eEmployee* empleados, int len,int id)
+{
+    int i;
+    int ret=-1;
+
+    for(i=0;i<len;i++)
+    {
+        if((empleados+i)->id==id && (empleados+i)->isEmpty==FAL)
+        {
+            ret=i;
+        }
+    }
     return ret;
 }
 
@@ -237,15 +324,21 @@ int mostrarEmpleado(eEmployee* empleados)
 int printEmployees(eEmployee* empleados, int length)
 {
     int i;
+    int ret=-1;
 
-    printf("%6s %10s %10s %8s %6s\n","ID","NOMBRE","APELLIDO","SALARIO","SECTOR");
-
-    for(i=0;i<length;i++)
+    if((empleados+i)!=NULL)
     {
-        if((empleados+i)->isEmpty==FAL)
+         printf("%6s %10s %10s %8s %6s\n","ID","NOMBRE","APELLIDO","SALARIO","SECTOR");
+
+        for(i=0;i<length;i++)
         {
-            mostrarEmpleado(empleados+i);
+            if((empleados+i)->isEmpty==FAL)
+            {
+                mostrarEmpleado(empleados+i);
+                ret=1;
+            }
         }
     }
-    return 0;
+
+    return ret;
 }

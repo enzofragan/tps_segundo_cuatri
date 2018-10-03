@@ -13,6 +13,7 @@ int main()
     int opcion;
     int alta;
     int mostrar;
+    int modifi;
 
     resultado=initEmployees(empleados,TAM);
 
@@ -35,8 +36,19 @@ int main()
                         printf("error en ingresar empleado\n");
                     }
                     break;
+                case 2:
+                    modifi=modificarEmployees(empleados,TAM);
+                    if(modifi>0)
+                    {
+                        printf("modificacion completa\n");
+                    }
+                    break;
                 case 4:
                     mostrar=printEmployees(empleados,TAM);
+                    if(mostrar<0)
+                    {
+                        printf("debe ingresar un dato primero\n");
+                    }
                     break;
                 case 6:
                     seguir='n';

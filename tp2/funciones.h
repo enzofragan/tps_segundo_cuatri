@@ -24,6 +24,8 @@ int esDecimal(char* );
 int buscarLibre(eEmployee [],int );
 int autoId(eEmployee [],int );
 int altaEmployees(eEmployee [],int );
+int modificarEmployees(eEmployee* ,int );
 int addEmployee(eEmployee* , int , int , char [],char [],float ,int );
+int findEmployeeById(eEmployee* , int ,int );
 int mostrarEmpleado(eEmployee* );
 int printEmployees(eEmployee* , int );
