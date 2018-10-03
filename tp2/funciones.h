@@ -32,3 +32,4 @@ int addEmployee(eEmployee* , int , int , char [],char [],float ,int );
 int findEmployeeById(eEmployee* , int ,int );
 int mostrarEmpleado(eEmployee* );
 int printEmployees(eEmployee* , int );
+int sortEmployees(eEmployee* , int , int );

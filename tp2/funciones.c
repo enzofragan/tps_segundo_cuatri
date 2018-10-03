@@ -410,3 +410,50 @@ int printEmployees(eEmployee* empleados, int length)
 
     return ret;
 }
+
+int sortEmployees(eEmployee* empleados, int len, int order)
+{
+    int i;
+    int j;
+    eEmployee aux;
+    int ret=-1;
+
+    for(i=0;i<len-1;i++)
+    {
+        for(j=i+1;j<len;j++)
+        {
+            if(order>0)
+            {
+                if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
+                {
+                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)==1 && (empleados+i)->sector>(empleados+j)->sector)
+                    {
+                        aux=*(empleados+i);
+                        *(empleados+i)=*(empleados+j);
+                        *(empleados+j)=aux;
+                        ret=1;
+                    }
+                }
+            }
+            else if(order==0)
+            {
+                if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
+                {
+                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)<0 && (empleados+i)->sector<(empleados+j)->sector)
+                    {
+                        aux=*(empleados+i);
+                        *(empleados+i)=*(empleados+j);
+                        *(empleados+j)=aux;
+                        ret=1;
+                    }
+                }
+            }
+        }
+    }
+
+    if(ret>0)
+    {
+        printEmployees(empleados,len);
+    }
+    return 0;
+}

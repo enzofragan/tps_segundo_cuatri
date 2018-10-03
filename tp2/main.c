@@ -15,6 +15,7 @@ int main()
     int mostrar;
     int modifi;
     int baja;
+    int orden;
 
     resultado=initEmployees(empleados,TAM);
 
@@ -48,7 +49,10 @@ int main()
                     baja=bajaEmployees(empleados,TAM);
                     break;
                 case 4:
-                    mostrar=printEmployees(empleados,TAM);
+                    printf("orden ascendiente (1) o descendiente (0)");
+                    fflush(stdin);
+                    scanf("%d",&orden);
+                    mostrar=sortEmployees(empleados,TAM,orden);
                     if(mostrar<0)
                     {
                         printf("debe ingresar un dato primero\n");
