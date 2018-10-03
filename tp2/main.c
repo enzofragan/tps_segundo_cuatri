@@ -14,6 +14,7 @@ int main()
     int alta;
     int mostrar;
     int modifi;
+    int baja;
 
     resultado=initEmployees(empleados,TAM);
 
@@ -42,6 +43,9 @@ int main()
                     {
                         printf("modificacion completa\n");
                     }
+                    break;
+                case 3:
+                    baja=bajaEmployees(empleados,TAM);
                     break;
                 case 4:
                     mostrar=printEmployees(empleados,TAM);

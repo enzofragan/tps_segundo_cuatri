@@ -57,7 +57,7 @@ int menu()
     int opcion;
 
     printf("1- ALTA\n");
-    printf("2- \n");
+    printf("2- MODIFICAR\n");
     printf("3- \n");
     printf("4- \n");
     printf("5- \n");
@@ -123,6 +123,24 @@ float getDec(char mensaje[],char error[])
     return aux;
 }
 
+char getChar(char mensaje[],char error[])
+{
+    char auxiliar;
+    char buffer[64];
+    printf("%s",mensaje);
+    fflush(stdin);
+    scanf("%s",buffer);
+    while(esLetra(buffer)==-1 && buffer!='y' && buffer!='n')
+    {
+        printf("%s",error);
+        fflush(stdin);
+        scanf("%s",buffer);
+    }
+    auxiliar=buffer;
+    return auxiliar;
+}
+
+
 int esDecimal(char* cadena)
 {
     int i=0;
@@ -174,7 +192,7 @@ int esLetra(char* cadena)
     return 1;
 }
 
-int altaEmployees(eEmployee empleados[],int tam)
+int altaEmployees(eEmployee* empleados,int tam)
 {
     int id;
     char nombre[51];
@@ -313,6 +331,56 @@ int findEmployeeById(eEmployee* empleados, int len,int id)
             ret=i;
         }
     }
+    return ret;
+}
+
+int bajaEmployees(eEmployee* empleados,int tam)
+{
+    int i;
+    int aux;
+    int ret=-1;
+
+    printf("ingrese el id a buscar ");
+    aux=getInt("ingrese un id valido ");
+
+    i=findEmployeeById(empleados,tam,aux);
+
+    if(i>=0)
+    {
+        mostrarEmpleado(empleados+i);
+        ret=removeEmployee(empleados,tam,i);
+
+        if(ret>0)
+        {
+            ret=1;
+        }
+    }
+    else
+    {
+        printf("id no encotrado\n");
+    }
+    return ret;
+}
+
+int removeEmployee(eEmployee* empleados, int len, int id)
+{
+    char opcion;
+    int ret=-1;
+
+        opcion=getChar("desea eliminar a este empleado ","ingrese una opcion valida ");
+
+        while(opcion!='s' && opcion!='n')
+        {
+            printf("seguro? ");
+            fflush(stdin);
+            scanf("%c",&opcion);
+        }
+
+        if(opcion=='s')
+        {
+            (empleados+id)->isEmpty=VER;
+            ret=1;
+        }
     return ret;
 }
 
