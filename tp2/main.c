@@ -16,6 +16,7 @@ int main()
     int modifi;
     int baja;
     int orden;
+    int prom;
 
     resultado=initEmployees(empleados,TAM);
 
@@ -58,7 +59,7 @@ int main()
                         printf("debe ingresar un dato primero\n");
                     }
                     break;
-                case 6:
+                case 5:
                     seguir='n';
                     break;
             }

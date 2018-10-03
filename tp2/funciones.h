@@ -33,3 +33,4 @@ int findEmployeeById(eEmployee* , int ,int );
 int mostrarEmpleado(eEmployee* );
 int printEmployees(eEmployee* , int );
 int sortEmployees(eEmployee* , int , int );
+int promedioEmpleados(eEmployee* ,int );

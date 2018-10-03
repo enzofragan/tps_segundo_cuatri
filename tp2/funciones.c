@@ -58,14 +58,13 @@ int menu()
 
     printf("1- ALTA\n");
     printf("2- MODIFICAR\n");
-    printf("3- \n");
-    printf("4- \n");
-    printf("5- \n");
-    printf("6- salir\n");
+    printf("3- BAJA\n");
+    printf("4- LISTAR\n");
+    printf("5- salir\n");
 
     opcion=getInt("ingrese una opcion valida ");
 
-    while(opcion>6)
+    while(opcion>5)
     {
         printf("ingrese una opcion valida ");
         opcion=getInt("ingrese una opcion valida ");
@@ -426,7 +425,7 @@ int sortEmployees(eEmployee* empleados, int len, int order)
             {
                 if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
                 {
-                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)==1 && (empleados+i)->sector>(empleados+j)->sector)
+                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)>0 && (empleados+i)->sector>(empleados+j)->sector)
                     {
                         aux=*(empleados+i);
                         *(empleados+i)=*(empleados+j);
@@ -435,7 +434,7 @@ int sortEmployees(eEmployee* empleados, int len, int order)
                     }
                 }
             }
-            else if(order==0)
+            if(order==0)
             {
                 if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
                 {
@@ -454,6 +453,36 @@ int sortEmployees(eEmployee* empleados, int len, int order)
     if(ret>0)
     {
         printEmployees(empleados,len);
+
+        promedioEmpleados(empleados,len);
     }
     return 0;
+}
+
+int promedioEmpleados(eEmployee* empleados,int tam)
+{
+    int i;
+    float aux;
+    int cont=0;
+    float promedio;
+    int ret=-1;
+
+    for(i=0;i<tam;i++)
+    {
+        if((empleados+i)->isEmpty==FAL)
+        {
+            aux=aux + (empleados+i)->salary;
+            cont++;
+        }
+    }
+
+    if(cont>0)
+    {
+        promedio = (float)aux/cont;
+        ret=1;
+    }
+
+    printf("%.2f este es el promedio\n",promedio);
+
+    return ret;
 }
