@@ -3,8 +3,8 @@
 #include <ctype.h>
 #include <string.h>
 #include "funciones.h"
-#define verdadero 0
-#define falso 1
+#define VER 0
+#define FAL 1
 
 int initEmployees(eEmployee* empleados,int tam)
 {
@@ -13,8 +13,11 @@ int initEmployees(eEmployee* empleados,int tam)
 
     for(i=0;i<tam;i++)
     {
-        empleados[i].isEmpty=verdadero;
-        ret=0;
+        if((empleados+i)!=NULL)
+        {
+           (empleados+i)->isEmpty=VER;
+            ret=0;
+        }
     }
 
     return ret;
@@ -27,7 +30,7 @@ int buscarLibre(eEmployee empleados[],int tam)
 
     for(i=0;i<tam;i++)
     {
-        if(empleados[i].isEmpty == verdadero)
+        if(empleados[i].isEmpty == VER)
         {
             ret=i;
             break;
@@ -53,7 +56,7 @@ int menu()
 {
     int opcion;
 
-    printf("1- \n");
+    printf("1- ALTA\n");
     printf("2- \n");
     printf("3- \n");
     printf("4- \n");
@@ -173,7 +176,6 @@ int esLetra(char* cadena)
 
 int altaEmployees(eEmployee empleados[],int tam)
 {
-    int i;
     int id;
     char nombre[51];
     char apellido[51];
@@ -190,5 +192,32 @@ int altaEmployees(eEmployee empleados[],int tam)
         salario=getDec("ingrese su salario ","ingrese un numero valido");
         printf("ingrese un sector ");
         sector=getInt("ingrese un sector valida ");
+        ret=addEmployee(empleados,tam,id,nombre,apellido,salario,sector);
+
     }
+}
+
+int addEmployee(eEmployee* empleados, int len, int id, char name[],char lastName[],float salary,int sector)
+{
+    int i;
+    int ret=-1;
+
+    i=buscarLibre(empleados,len);
+
+    if((empleados+i)!=NULL)
+    {
+        if(i>=0)
+        {
+            (empleados+i)->id=id;
+            strcpy((empleados+i)->name,name);
+            strcpy((empleados+i)->lastName,lastName);
+            (empleados+i)->salary=salary;
+            (empleados+i)->sector=sector;
+            ret=1;
+        }
+    }
+
+    //printf("%d  %s  %s  %f  %d",(empleados+i)->id,(empleados+i)->name,(empleados+i)->lastName,(empleados+i)->salary,(empleados+i)->sector);
+
+    return ret;
 }
