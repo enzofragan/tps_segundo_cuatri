@@ -367,7 +367,7 @@ int removeEmployee(eEmployee* empleados, int len, int id)
     char opcion;
     int ret=-1;
 
-        opcion=getChar("desea eliminar a este empleado ","ingrese una opcion valida ");
+        opcion=getChar("desea eliminar a este empleado? ","ingrese una opcion valida ");
 
         while(opcion!='s' && opcion!='n')
         {
