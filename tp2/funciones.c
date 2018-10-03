@@ -6,16 +6,23 @@
 #define VER 0
 #define FAL 1
 
+/** \brief incializa la estructura empleado
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param tam int cantidad de empleados
+ * \return int retorna 0 si logro inicializarla
+ *
+ */
 int initEmployees(eEmployee* empleados,int tam)
 {
     int i;
     int ret=-1;
 
-    for(i=0;i<tam;i++)
+    for(i=0; i<tam; i++)
     {
         if((empleados+i)!=NULL)
         {
-           (empleados+i)->isEmpty=VER;
+            (empleados+i)->isEmpty=VER;
             ret=0;
         }
     }
@@ -23,14 +30,21 @@ int initEmployees(eEmployee* empleados,int tam)
     return ret;
 }
 
-int buscarLibre(eEmployee empleados[],int tam)
+/** \brief busca el primer lugar libre que encuente
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param tam int cantidad de empleados
+ * \return int retorna la posicion encontrada
+ *
+ */
+int buscarLibre(eEmployee* empleados,int tam)
 {
     int i;
     int ret=-1;
 
-    for(i=0;i<tam;i++)
+    for(i=0; i<tam; i++)
     {
-        if(empleados[i].isEmpty == VER)
+        if((empleados+i)->isEmpty == VER)
         {
             ret=i;
             break;
@@ -40,7 +54,14 @@ int buscarLibre(eEmployee empleados[],int tam)
     return ret;
 }
 
-int autoId(eEmployee empleados[],int tam)
+/** \brief id auto incremental de empleados, le suma uno a la posicion libre
+ *
+ * \param empleados eEmployee* estruvtura de empleados
+ * \param tam int cantidad de empleados
+ * \return int retorna la id auto incrementada
+ *
+ */
+int autoId(eEmployee* empleados,int tam)
 {
     int i;
     int id;
@@ -52,6 +73,11 @@ int autoId(eEmployee empleados[],int tam)
     return id;
 }
 
+/** \brief menu de opciones de empleados con validacion
+ *
+ * \return int retorna la opcion elegida
+ *
+ */
 int menu()
 {
     int opcion;
@@ -73,6 +99,12 @@ int menu()
     return opcion;
 }
 
+/** \brief el get para los numeros enteros, el proceso es el mismo que en de decimal y si es un numero pasa el buffer a int
+ *
+ * \param error[] char se le pasa el mensaje de error en caso de que la validacion falle
+ * \return int si es un numero primero pasa la cadena a int y luego lo retorna
+ *
+ */
 int getInt(char error[])
 {
     int aux;
@@ -88,6 +120,14 @@ int getInt(char error[])
     return aux;
 }
 
+/** \brief get para cadena de caracteres, el proceso es el mismo que los demas, con la diferencia de que se le pasa la variable por parametro
+ *
+ * \param mensaje[] char mensaje a imprimir
+ * \param error[] char mensaje de error
+ * \param caracter[] char varible que guarda lo que se quiera ingrasar y luego se valida
+ * \return char retorna lo ingresado
+ *
+ */
 char getString(char mensaje[],char error[],char caracter[])
 {
     printf("%s",mensaje);
@@ -103,6 +143,13 @@ char getString(char mensaje[],char error[],char caracter[])
     return caracter;
 }
 
+/** \brief obtiene el decimal a ingresar y lo pasa a string y lo valida
+ *
+ * \param mensaje[] char se le pasa el mensaje a utilizar
+ * \param error[] char y el mensaje de error en caso de que la validacion falle
+ * \return float retorna el numero pasado de string a float
+ *
+ */
 float getDec(char mensaje[],char error[])
 {
     float aux;
@@ -122,6 +169,13 @@ float getDec(char mensaje[],char error[])
     return aux;
 }
 
+/** \brief el get para los caracteres y es el mismo proceso que los otros dos
+ *
+ * \param mensaje[] char se le pasa el mensaje a utilizar
+ * \param error[] char y el mensaje de error por si la validacion falla
+ * \return char si es un char pasa el buffer a un auxiliar y lo retorna
+ *
+ */
 char getChar(char mensaje[],char error[])
 {
     char auxiliar;
@@ -139,7 +193,12 @@ char getChar(char mensaje[],char error[])
     return auxiliar;
 }
 
-
+/** \brief validacion para saber si el numero es decimal o si es un numero o letra
+ *
+ * \param cadena char* se el pasa el puntero a la cadena pasada en el get y lo recorre para verificar que se un numero o sea un numero decimal
+ * \return int retorna -1 si es una letra y 1 si es un numero
+ *
+ */
 int esDecimal(char* cadena)
 {
     int i=0;
@@ -157,6 +216,12 @@ int esDecimal(char* cadena)
     return 1;
 }
 
+/** \brief validacion para los numeros enteros
+ *
+ * \param cadena char* se le pasa la cadena del get y la recorre
+ * \return int devuelve -1 si es una letra y 1 si es un numero
+ *
+ */
 int esNumerica(char* cadena)
 {
     int i=0;
@@ -174,6 +239,12 @@ int esNumerica(char* cadena)
     return 1;
 }
 
+/** \brief validacion para las letras
+ *
+ * \param cadena char* se le pasa la cadena del get, para que la recorra
+ * \return int retorna -1 si es un numero y 1 si es una letra
+ *
+ */
 int esLetra(char* cadena)
 {
     int i=0;
@@ -191,6 +262,13 @@ int esLetra(char* cadena)
     return 1;
 }
 
+/** \brief alta de empleados, que pide los valores que se quiera ingresar y luego de validar los agrega
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param tam int cantidad de empleados
+ * \return int retorna 1 si se logro dar de alta
+ *
+ */
 int altaEmployees(eEmployee* empleados,int tam)
 {
     int id;
@@ -214,10 +292,21 @@ int altaEmployees(eEmployee* empleados,int tam)
 
     }
 
-
     return ret;
 }
 
+/** \brief agrega los datos ingresados a la estructura
+ *
+ * \param empleados eEmployee*estructura de empleados
+ * \param len int cantidad de empleados
+ * \param id int el id del empleado aunto calculado
+ * \param name[] char nombre del empleado
+ * \param lastName[] char apellido del empleado
+ * \param salary float salario del empleado
+ * \param sector int sector del empleado
+ * \return int retorna 1 si se logro agradar
+ *
+ */
 int addEmployee(eEmployee* empleados, int len, int id, char name[],char lastName[],float salary,int sector)
 {
     int i;
@@ -248,6 +337,13 @@ int addEmployee(eEmployee* empleados, int len, int id, char name[],char lastName
     return ret;
 }
 
+/** \brief modificar un empleado ingresado,pide el id del empleado, lo muestra y pregunta que quiere modificar
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param tam int cantidad de empleados
+ * \return int retorna 1 si se logro modificar
+ *
+ */
 int modificarEmployees(eEmployee* empleados,int tam)
 {
     int i;
@@ -286,30 +382,30 @@ int modificarEmployees(eEmployee* empleados,int tam)
 
         switch(opcion)
         {
-            case 1:
-                getString("ingrese nuevo nombre: ","ingrese un nombra valido ",nombre);
-                strcpy((empleados+i)->name,nombre);
-                ret=1;
-                break;
-            case 2:
-                getString("ingrese nuevo apellido: ","ingrese un apellido valido ",apellido);
-                strcpy((empleados+i)->lastName,apellido);
-                ret=1;
-                break;
-            case 3:
-                salario=getDec("ingrese nuevo salario: ","ingrese un numero valido ");
-                (empleados+i)->salary=salario;
-                ret=1;
-                break;
-            case 4:
-                printf("ingrese nuevo sector: ");
-                sector=getInt("ingrese un sector valida ");
-                (empleados+i)->sector=sector;
-                ret=1;
-                break;
-            case 5:
-                ret=1;
-                break;
+        case 1:
+            getString("ingrese nuevo nombre: ","ingrese un nombra valido ",nombre);
+            strcpy((empleados+i)->name,nombre);
+            ret=1;
+            break;
+        case 2:
+            getString("ingrese nuevo apellido: ","ingrese un apellido valido ",apellido);
+            strcpy((empleados+i)->lastName,apellido);
+            ret=1;
+            break;
+        case 3:
+            salario=getDec("ingrese nuevo salario: ","ingrese un numero valido ");
+            (empleados+i)->salary=salario;
+            ret=1;
+            break;
+        case 4:
+            printf("ingrese nuevo sector: ");
+            sector=getInt("ingrese un sector valida ");
+            (empleados+i)->sector=sector;
+            ret=1;
+            break;
+        case 5:
+            ret=1;
+            break;
         }
 
         mostrarEmpleado(empleados+i);
@@ -322,12 +418,20 @@ int modificarEmployees(eEmployee* empleados,int tam)
     return ret;
 }
 
+/** \brief busca el empleado por medio de la id
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param len int cantidad de empleados
+ * \param id int id a buscar
+ * \return int si encontro el empleado retorna su posicion
+ *
+ */
 int findEmployeeById(eEmployee* empleados, int len,int id)
 {
     int i;
     int ret=-1;
 
-    for(i=0;i<len;i++)
+    for(i=0; i<len; i++)
     {
         if((empleados+i)->id==id && (empleados+i)->isEmpty==FAL)
         {
@@ -337,6 +441,13 @@ int findEmployeeById(eEmployee* empleados, int len,int id)
     return ret;
 }
 
+/** \brief baja logica del empleado, busca el id pedido, mustra el empleado y pregunta ods veces si quiere darlo de baja
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param tam int cantidad de empleados
+ * \return int retorna 1 si logro darlo de vaja
+ *
+ */
 int bajaEmployees(eEmployee* empleados,int tam)
 {
     int i;
@@ -365,33 +476,54 @@ int bajaEmployees(eEmployee* empleados,int tam)
     return ret;
 }
 
+/** \brief remueve el empleado de la id buscada
+ *
+ * \param empleados eEmployee* estructura de empleado
+ * \param len int cantidad de empleados
+ * \param id int id o posicion buscada
+ * \return int retorna 1 si logro removerlo o darlo de baja
+ *
+ */
 int removeEmployee(eEmployee* empleados, int len, int id)
 {
     char opcion;
     int ret=-1;
 
-        opcion=getChar("desea eliminar a este empleado? ","ingrese una opcion valida ");
+    opcion=getChar("desea eliminar a este empleado? ","ingrese una opcion valida ");
 
-        while(opcion!='s' && opcion!='n')
-        {
-            printf("seguro? ");
-            fflush(stdin);
-            scanf("%c",&opcion);
-        }
+    while(opcion!='s' && opcion!='n')
+    {
+        printf("seguro? ");
+        fflush(stdin);
+        scanf("%c",&opcion);
+    }
 
-        if(opcion=='s')
-        {
-            (empleados+id)->isEmpty=VER;
-            ret=1;
-        }
+    if(opcion=='s')
+    {
+        (empleados+id)->isEmpty=VER;
+        ret=1;
+    }
     return ret;
 }
 
+/** \brief mustra un empleado
+ *
+ * \param empleados eEmployee* estructura de empleado
+ * \return int no retorna nada
+ *
+ */
 int mostrarEmpleado(eEmployee* empleados)
 {
     printf(" %6d %9s %9s   %.2f %10d\n",empleados->id,empleados->name,empleados->lastName,empleados->salary,empleados->sector);
 }
 
+/** \brief muestra los empleados en forma estructurada
+ *
+ * \param empleados eEmployee* estrucgtura de empleados
+ * \param length int cantidad de empleados
+ * \return int retorna 1 si logro mostrarlos
+ *
+ */
 int printEmployees(eEmployee* empleados, int length)
 {
     int i;
@@ -399,9 +531,9 @@ int printEmployees(eEmployee* empleados, int length)
 
     if((empleados+i)!=NULL)
     {
-         printf("%6s %10s %10s %8s %6s\n","ID","NOMBRE","APELLIDO","SALARIO","SECTOR");
+        printf("%6s %10s %10s %8s %6s\n","ID","NOMBRE","APELLIDO","SALARIO","SECTOR");
 
-        for(i=0;i<length;i++)
+        for(i=0; i<length; i++)
         {
             if((empleados+i)->isEmpty==FAL)
             {
@@ -414,6 +546,14 @@ int printEmployees(eEmployee* empleados, int length)
     return ret;
 }
 
+/** \brief ordenamiento de empleados por apellido y sector, el orden de pende del usuario y muestra el promedio y total de los salarios de los empleados
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param len int cantidad de empleados
+ * \param order int forma de orden de empleados 1 ascendiento o 0 descendiente
+ * \return int retorna 1 si se logro ordenar
+ *
+ */
 int sortEmployees(eEmployee* empleados, int len, int order)
 {
     int i;
@@ -421,28 +561,40 @@ int sortEmployees(eEmployee* empleados, int len, int order)
     eEmployee aux;
     int ret=-1;
 
-    for(i=0;i<len-1;i++)
+    for(i=0; i<len-1; i++)
     {
-        for(j=i+1;j<len;j++)
+        for(j=i+1; j<len; j++)
         {
             if(order>0)
             {
                 if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
                 {
-                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)>0 && (empleados+i)->sector>(empleados+j)->sector)
+                    if((empleados+i)->sector > (empleados+j)->sector)
                     {
-                        aux=*(empleados+i);
-                        *(empleados+i)=*(empleados+j);
-                        *(empleados+j)=aux;
-                        ret=1;
+                                                    aux=*(empleados+i);
+                            *(empleados+i)=*(empleados+j);
+                            *(empleados+j)=aux;
                     }
+                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)>0)
+                        {
+                            aux=*(empleados+i);
+                            *(empleados+i)=*(empleados+j);
+                            *(empleados+j)=aux;
+                            ret=1;
+                        }
                 }
             }
             if(order==0)
             {
                 if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
                 {
-                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)<0 && (empleados+i)->sector<(empleados+j)->sector)
+                    if((empleados+i)->sector<(empleados+j)->sector)
+                    {
+                        aux=*(empleados+i);
+                        *(empleados+i)=*(empleados+j);
+                        *(empleados+j)=aux;
+                    }
+                    if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)<0)
                     {
                         aux=*(empleados+i);
                         *(empleados+i)=*(empleados+j);
@@ -463,6 +615,13 @@ int sortEmployees(eEmployee* empleados, int len, int order)
     return 0;
 }
 
+/** \brief total y promedio de los empleados, los guarda en un acumulador y cuenta cada vez que se guarde un salario
+ *
+ * \param empleados eEmployee* estructura de empleados
+ * \param tam int cantidad de empleados
+ * \return int retorna 1 si se logro realizar la cuenta
+ *
+ */
 int promedioEmpleados(eEmployee* empleados,int tam)
 {
     int i;
@@ -471,7 +630,7 @@ int promedioEmpleados(eEmployee* empleados,int tam)
     float promedio;
     int ret=-1;
 
-    for(i=0;i<tam;i++)
+    for(i=0; i<tam; i++)
     {
         if((empleados+i)->isEmpty==FAL)
         {
@@ -486,7 +645,7 @@ int promedioEmpleados(eEmployee* empleados,int tam)
         ret=1;
     }
 
-    printf("%.2f este es el promedio\n",promedio);
+    printf("%.2f total de salario de los empleados\n%.2f este es el promedio\n",aux,promedio);
 
     return ret;
 }
