@@ -30,6 +30,33 @@ int initEmployees(eEmployee* empleados,int tam)
     return ret;
 }
 
+int initEmployeesHardcode(eEmployee* empleados)
+{
+    int i;
+    int id[5]={1,2,3,4,5};
+    char nombre[5][51]={"enzo","luis","maria","sol","pedro"};
+    char apellido[5][51]={"fragan","marcelo","anabel","santos","martin"};
+    float salario[5]={15.00,20.00,15.00,30.00,40.50};
+    int sector[5]={1,2,1,3,2};
+    int ret=-1;
+
+    for(i=0; i<5; i++)
+    {
+        if((empleados+i)!=NULL)
+        {
+            (empleados+i)->id=id[i];
+            strcpy((empleados+i)->name,nombre[i]);
+            strcpy((empleados+i)->lastName,apellido[i]);
+            (empleados+i)->salary=salario[i];
+            (empleados+i)->sector=sector[i];
+            (empleados+i)->isEmpty=FAL;
+            ret=0;
+        }
+    }
+
+    return ret;
+}
+
 /** \brief busca el primer lugar libre que encuente
  *
  * \param empleados eEmployee* estructura de empleados
@@ -565,13 +592,13 @@ int sortEmployees(eEmployee* empleados, int len, int order)
     {
         for(j=i+1; j<len; j++)
         {
-            if(order>0)
+            if(order==0)
             {
                 if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
                 {
                     if((empleados+i)->sector > (empleados+j)->sector)
                     {
-                                                    aux=*(empleados+i);
+                            aux=*(empleados+i);
                             *(empleados+i)=*(empleados+j);
                             *(empleados+j)=aux;
                     }
@@ -584,7 +611,7 @@ int sortEmployees(eEmployee* empleados, int len, int order)
                         }
                 }
             }
-            if(order==0)
+            if(order>0)
             {
                 if((empleados+i)->isEmpty==FAL && (empleados+j)->isEmpty==FAL)
                 {

@@ -14,6 +14,7 @@ typedef struct
 #endif // FUNCIONES_H_INCLUDED
 
 int initEmployees(eEmployee*,int );
+int initEmployeesHardcode(eEmployee*);
 int menu();
 int getInt(char []);
 char getString(char [],char [],char []);

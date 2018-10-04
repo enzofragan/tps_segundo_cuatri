@@ -20,6 +20,8 @@ int main()
 
     resultado=initEmployees(empleados,TAM);
 
+    resultado=initEmployeesHardcode(empleados);
+
 
     if(resultado==0)
     {
@@ -64,7 +66,7 @@ int main()
                 }
                 break;
             case 4:
-                printf("orden descendiente (1) o ascendienten (0)");
+                printf("orden ascendienten (1) o descendiente (0)");
                 fflush(stdin);
                 scanf("%d",&orden);
                 mostrar=sortEmployees(empleados,TAM,orden);
