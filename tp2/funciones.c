@@ -33,11 +33,11 @@ int initEmployees(eEmployee* empleados,int tam)
 int initEmployeesHardcode(eEmployee* empleados)
 {
     int i;
-    int id[5]={1,2,3,4,5};
-    char nombre[5][51]={"enzo","luis","maria","sol","pedro"};
-    char apellido[5][51]={"fragan","marcelo","anabel","santos","martin"};
-    float salario[5]={15.00,20.00,15.00,30.00,40.50};
-    int sector[5]={1,2,1,3,2};
+    int id[5]= {1,2,3,4,5};
+    char nombre[5][51]= {"enzo","luis","maria","sol","pedro"};
+    char apellido[5][51]= {"fragan","marcelo","anabel","santos","martin"};
+    float salario[5]= {15.00,20.00,15.00,30.00,40.50};
+    int sector[5]= {1,2,1,3,2};
     int ret=-1;
 
     for(i=0; i<5; i++)
@@ -598,18 +598,19 @@ int sortEmployees(eEmployee* empleados, int len, int order)
                 {
                     if((empleados+i)->sector > (empleados+j)->sector)
                     {
-                            aux=*(empleados+i);
-                            *(empleados+i)=*(empleados+j);
-                            *(empleados+j)=aux;
+                        aux=*(empleados+i);
+                        *(empleados+i)=*(empleados+j);
+                        *(empleados+j)=aux;
                     }
                     if(strcmp((empleados+i)->lastName,(empleados+j)->lastName)>0)
-                        {
-                            aux=*(empleados+i);
-                            *(empleados+i)=*(empleados+j);
-                            *(empleados+j)=aux;
-                            ret=1;
-                        }
+                    {
+                        aux=*(empleados+i);
+                        *(empleados+i)=*(empleados+j);
+                        *(empleados+j)=aux;
+
+                    }
                 }
+                ret=1;
             }
             if(order>0)
             {
@@ -626,9 +627,10 @@ int sortEmployees(eEmployee* empleados, int len, int order)
                         aux=*(empleados+i);
                         *(empleados+i)=*(empleados+j);
                         *(empleados+j)=aux;
-                        ret=1;
+
                     }
                 }
+                ret=1;
             }
         }
     }
@@ -655,6 +657,7 @@ int promedioEmpleados(eEmployee* empleados,int tam)
     float aux;
     int cont=0;
     float promedio;
+    int emple=0;
     int ret=-1;
 
     for(i=0; i<tam; i++)
@@ -670,6 +673,17 @@ int promedioEmpleados(eEmployee* empleados,int tam)
     {
         promedio = (float)aux/cont;
         ret=1;
+    }
+
+    for(i=0;i<tam;i++)
+    {
+        if((empleados+i)->isEmpty==FAL)
+        {
+            if((empleados+i)->salary>promedio)
+            {
+                emple++;
+            }
+        }
     }
 
     printf("%.2f total de salario de los empleados\n%.2f este es el promedio\n",aux,promedio);
