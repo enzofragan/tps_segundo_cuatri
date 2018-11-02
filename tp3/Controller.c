@@ -19,6 +19,8 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
     pArchivo = fopen(path,"r");
 
     ret=parser_EmployeeFromText(pArchivo,pArrayListEmployee);
+
+    fclose(pArchivo);
     return ret;
 }
 

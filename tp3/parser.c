@@ -34,10 +34,11 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
                employee_setHorasTrabajadas(pAux,atoi(horas));
                employee_setSueldo(pAux,atoi(sueldo));
                ll_add(pArrayListEmployee,pAux);
+               ret=1;
             }
         }while(!feof(pFile));
     }
-    return 1;
+    return ret;
 }
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
