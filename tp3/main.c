@@ -31,6 +31,9 @@ int main()
             case 1:
                 controller_loadFromText("data.csv",listaEmpleados);
                 break;
+            case 2:
+                controller_loadFromBinary("data.csv",listaEmpleados);
+                break;
         }
     }while(option != 10);
     return 0;

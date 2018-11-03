@@ -35,6 +35,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
                employee_setSueldo(pAux,atoi(sueldo));
                ll_add(pArrayListEmployee,pAux);
                ret=1;
+               printf("%d---%s---%d---%d\n",pAux->id,pAux->nombre,pAux->horasTrabajadas,pAux->sueldo);
             }
         }while(!feof(pFile));
     }
@@ -50,6 +51,30 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
+    int ret=-1;
+    Employee* pAux;
+    int cantidad;
 
-    return 1;
+    if(pFile!=NULL && pArrayListEmployee!=NULL)
+    {
+        do{
+            pAux=employee_new();
+            cantidad=fread(&pAux,sizeof(Employee),1,pFile);
+            if(cantidad!=1)
+            {
+                if(feof(pFile))
+                {
+                    break;
+                }
+                else
+                {
+                    printf("no leyo el ultimo registro");
+                    break;
+                }
+            }
+            printf("%d---%s---%d---%d\n",pAux->id,pAux->nombre,pAux->horasTrabajadas,pAux->sueldo);
+
+        }while(!feof(pFile));
+    }
+    return ret;
 }
