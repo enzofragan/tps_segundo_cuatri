@@ -32,7 +32,7 @@ int main()
                 controller_loadFromText("data.csv",listaEmpleados);
                 break;
             case 2:
-                controller_loadFromBinary("data.csv",listaEmpleados);
+                controller_loadFromBinary("data.dat",listaEmpleados);
                 break;
         }
     }while(option != 10);

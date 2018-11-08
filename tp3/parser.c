@@ -59,11 +59,13 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
     {
         do{
             pAux=employee_new();
-            cantidad=fread(&pAux,sizeof(Employee),1,pFile);
+            cantidad = fread(pAux,sizeof(Employee),1,pFile);
             if(cantidad!=1)
             {
                 if(feof(pFile))
                 {
+                    ll_add(pArrayListEmployee,pAux);
+                    printf("%d---%s---%d---%d\n",pAux->id,pAux->nombre,pAux->horasTrabajadas,pAux->sueldo);
                     break;
                 }
                 else
@@ -72,7 +74,6 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
                     break;
                 }
             }
-            printf("%d---%s---%d---%d\n",pAux->id,pAux->nombre,pAux->horasTrabajadas,pAux->sueldo);
 
         }while(!feof(pFile));
     }
