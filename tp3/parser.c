@@ -35,7 +35,6 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
                employee_setSueldo(pAux,atoi(sueldo));
                ll_add(pArrayListEmployee,pAux);
                ret=1;
-               printf("%d---%s---%d---%d\n",pAux->id,pAux->nombre,pAux->horasTrabajadas,pAux->sueldo);
             }
         }while(!feof(pFile));
     }
@@ -65,7 +64,6 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
                 if(feof(pFile))
                 {
                     ll_add(pArrayListEmployee,pAux);
-                    printf("%d---%s---%d---%d\n",pAux->id,pAux->nombre,pAux->horasTrabajadas,pAux->sueldo);
                     break;
                 }
                 else
