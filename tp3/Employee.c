@@ -13,6 +13,31 @@ Employee* employee_new()
     return empleado;
 }
 
+Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr)
+{
+    Employee* empleado;
+
+    if(esNumerica(idStr)!=-1)
+    {
+        if(esLetra(nombreStr)!=-1)
+        {
+            if(esNumerica(horasTrabajadasStr)!=-1)
+            {
+                empleado=employee_new();
+
+                if(empleado!=NULL)
+                {
+                    employee_setId(empleado,atoi(idStr));
+                    employee_setNombre(empleado,nombreStr);
+                    employee_setHorasTrabajadas(empleado,atoi(horasTrabajadasStr));
+                }
+            }
+        }
+    }
+
+    return empleado;
+}
+
 int employee_setId(Employee* this,int id)
 {
     if(this!=NULL)
@@ -50,5 +75,49 @@ int employee_setSueldo(Employee* this,int sueldo)
         this->sueldo=sueldo;
     }
 
+    return sueldo;
+}
+
+int employee_getId(Employee* this,int* id)
+{
+    int ret=0;
+    if(this!=NULL)
+    {
+        *id=this->id;
+        ret = 1;
+    }
+    return ret;
+}
+
+int employee_getNombre(Employee* this,char* nombre)
+{
+    int ret=0;
+    if(this!=NULL)
+    {
+        strcpy(nombre,this->nombre);
+        ret=1;
+    }
+    return 1;
+}
+
+int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
+{
+    int ret=0;
+    if(this!=NULL)
+    {
+        *horasTrabajadas=this->horasTrabajadas;
+        ret=1;
+    }
+    return 1;
+}
+
+int employee_getSueldo(Employee* this,int* sueldo)
+{
+    int ret=0;
+    if(this!=NULL)
+    {
+        *sueldo=this->sueldo;
+        ret=1;
+    }
     return 1;
 }

@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "LinkedList.h"
 #include "Employee.h"
-
+#include "Controller.h"
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -53,7 +54,33 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    char id[50];
+    char nombre[50];
+    char horas[50];
+    char sueldo[50];
+    Employee* pAux;
+    int ret=0;
+    int aux;
+
+    if(pArrayListEmployee!=NULL)
+    {
+        getStringEnteros("ingrese su id: ","ingrese un id valido ",id);
+        getString("ingrese su nombre: ","ingrese un nombre valido ",nombre);
+        getStringEnteros("ingrese sus horas trabajadas: ","ingrese unas horas validas ",horas);
+        getStringEnteros("ingrese su sueldo: ","ingrese un sueldo valido ",sueldo);
+
+        pAux=employee_newParametros(id,nombre,horas);
+
+        if(pAux!=NULL)
+        {
+            aux=atoi(sueldo);
+            employee_setSueldo(pAux,aux);
+            ll_add(pArrayListEmployee,pAux);
+            ret=1;
+        }
+    }
+
+    return ret;
 }
 
 /** \brief Modificar datos de empleado
@@ -89,6 +116,24 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
+    int i;
+    int len;
+    Employee* aux;
+
+    len=ll_len(pArrayListEmployee);
+
+    printf("id   nombre   horas trabajadas   sueldo\n");
+
+    for(i=0;i<len;i++)
+    {
+        aux=(Employee*) ll_get(pArrayListEmployee,i);
+
+        if(aux!=NULL)
+        {
+            controller_ListOneEmployee(aux);
+        }
+    }
+
     return 1;
 }
 
@@ -184,4 +229,65 @@ int esNumerica(char* cadena)
         }
     }
     return 1;
+}
+
+int esLetra(char* cadena)
+{
+    int i=0;
+    if(cadena!=NULL)
+    {
+        while(cadena[i]!='\0')
+        {
+            if(!(isalpha(cadena[i])))
+            {
+                return -1;
+            }
+            i++;
+        }
+    }
+    return 1;
+}
+
+int controller_ListOneEmployee(Employee* empleado)
+{
+    int* id;
+    char nombre[128];
+    int* horas;
+    int* sueldo;
+    employee_getId(empleado,&id);
+    employee_getNombre(empleado,nombre);
+    employee_getHorasTrabajadas(empleado,&horas);
+    employee_getSueldo(empleado,&sueldo);
+    printf("%d   %s   %d   %d\n",id,nombre,horas,sueldo);
+}
+
+char getString(char mensaje[],char error[],char caracter[])
+{
+    printf("%s",mensaje);
+    fflush(stdin);
+    gets(caracter);
+    while(esLetra(caracter)==-1)
+    {
+        printf("%s",error);
+        fflush(stdin);
+        gets(caracter);
+    }
+
+    return caracter;
+}
+
+char getStringEnteros(char mensaje[],char error[],char caracter[])
+{
+    printf("%s",mensaje);
+    fflush(stdin);
+    gets(caracter);
+
+    while(esNumerica(caracter)==-1)
+    {
+        printf("%s",error);
+        fflush(stdin);
+        gets(caracter);
+    }
+
+    return caracter;
 }
