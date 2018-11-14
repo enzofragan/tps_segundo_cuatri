@@ -11,8 +11,9 @@ int menu();
 int getInt(char []);
 char getString(char [],char [],char []);
 char getStringEnteros(char [],char [],char []);
+char getChar(char [],char []);
 int esNumerica(char* );
 int esLetra(char* );
-
-
+int controller_SearchEmployee(LinkedList* pArrayListEmployee);
+int compararSueldos(void* ,void*);
 

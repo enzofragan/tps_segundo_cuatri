@@ -87,32 +87,34 @@
 	"Employee.h"
 	"Controller.h"
 
-1541709032 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\controller.c
+1542224520 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\controller.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"LinkedList.h"
 	"Employee.h"
+	"Controller.h"
 
-1541709032 c:\users\administrador\desktop\tps_segundo_cuatri\tp3\linkedlist.h
+1542213219 c:\users\administrador\desktop\tps_segundo_cuatri\tp3\linkedlist.h
 
-1541709032 c:\users\administrador\desktop\tps_segundo_cuatri\tp3\employee.h
+1542221720 c:\users\administrador\desktop\tps_segundo_cuatri\tp3\employee.h
 
-1541709032 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\main.c
+1542223018 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\main.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
 	"Controller.h"
 	"Employee.h"
 
-1541709032 c:\users\administrador\desktop\tps_segundo_cuatri\tp3\controller.h
+1542224520 c:\users\administrador\desktop\tps_segundo_cuatri\tp3\controller.h
 
-1541263997 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\parser.c
+1542213219 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
 	"Employee.h"
 
-1541709032 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\employee.c
+1542221720 source:c:\users\administrador\desktop\tps_segundo_cuatri\tp3\employee.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

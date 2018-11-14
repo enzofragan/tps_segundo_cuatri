@@ -38,44 +38,57 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
     return empleado;
 }
 
+void employee_delete(Employee* empleado)
+{
+    free(empleado);
+}
+
 int employee_setId(Employee* this,int id)
 {
+    int ret=0;
     if(this!=NULL)
     {
         this->id=id;
+        ret=1;
     }
 
-    return 1;
+    return ret;
 }
 
 int employee_setNombre(Employee* this,char* nombre)
 {
+    int ret=0;
     if(this!=NULL && nombre!=NULL)
     {
         strcpy(this->nombre,nombre);
+        ret=1;
     }
 
-    return 1;
+    return ret;
 }
 
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
+    int ret=0;
     if(this!=NULL)
     {
         this->horasTrabajadas=horasTrabajadas;
+        ret=1;
     }
 
-    return 1;
+    return ret;
 }
 
 int employee_setSueldo(Employee* this,int sueldo)
 {
+    int ret=0;
     if(this!=NULL)
     {
         this->sueldo=sueldo;
+        ret=1;
     }
 
-    return sueldo;
+    return ret;
 }
 
 int employee_getId(Employee* this,int* id)
