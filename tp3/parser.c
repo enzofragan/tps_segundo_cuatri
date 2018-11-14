@@ -59,20 +59,23 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
         do{
             pAux=employee_new();
             cantidad = fread(pAux,sizeof(Employee),1,pFile);
+            if(cantidad==1)
+            {
+                ll_add(pArrayListEmployee,pAux);
+            }
+
             if(cantidad!=1)
             {
                 if(feof(pFile))
                 {
-                    ll_add(pArrayListEmployee,pAux);
-                    break;
+                    ret=1;
                 }
                 else
                 {
-                    printf("no leyo el ultimo registro");
-                    break;
+                    ret=-1;
                 }
-            }
 
+            }
         }while(!feof(pFile));
     }
     return ret;

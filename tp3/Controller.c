@@ -19,7 +19,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 
     pArchivo = fopen(path,"r");
 
-    ret=parser_EmployeeFromText(pArchivo,pArrayListEmployee);
+    ret = parser_EmployeeFromText(pArchivo,pArrayListEmployee);
 
     fclose(pArchivo);
     return ret;
@@ -80,7 +80,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
         }
         else
         {
-            ret=-1;
+            ret=0;
         }
     }
     else
@@ -104,6 +104,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     int idB;
     int index=-1;
     int opcion;
+    char respuesta;
     int len;
     int ret=-1;
     Employee* pAux;
@@ -152,27 +153,78 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
         {
         case 1:
             getString("ingrese su nombre: ","ingrese un nombre valido ",nombre);
-            ret=employee_setNombre(pAux,nombre);
-            if(ret==1)
+
+            printf("desea continuar? y/n\n");
+            fflush(stdin);
+            scanf("%c",&respuesta);
+
+            while(respuesta!= 'y' && respuesta!='n')
+            {
+                printf("ingrese un caracter valido y/n\n");
+                fflush(stdin);
+                scanf("%c",&respuesta);
+            }
+
+            if(respuesta=='y')
+            {
+                ret=employee_setNombre(pAux,nombre);
+                ll_push(pArrayListEmployee,index,pAux);
+            }
+            else
             {
                 ll_push(pArrayListEmployee,index,pAux);
+                ret=0;
             }
             break;
 
         case 2:
             getStringEnteros("ingrese sus horas trabajadas: ","ingrese unas horas validas ",horas);
-            ret=employee_setHorasTrabajadas(pAux,atoi(horas));
-            if(ret==1)
+
+            printf("desea continuar? y/n\n");
+            fflush(stdin);
+            scanf("%c",&respuesta);
+
+            while(respuesta!= 'y' && respuesta!='n')
+            {
+                printf("ingrese un caracter valido y/n\n");
+                fflush(stdin);
+                scanf("%c",&respuesta);
+            }
+
+            if(respuesta=='y')
+            {
+                ret=employee_setHorasTrabajadas(pAux,atoi(horas));
+                ll_push(pArrayListEmployee,index,pAux);
+            }
+            else
             {
                 ll_push(pArrayListEmployee,index,pAux);
+                ret=0;
             }
             break;
         case 3:
             getStringEnteros("ingrese su sueldo: ","ingrese un sueldo valido ",sueldo);
-            ret=employee_setSueldo(pAux,atoi(sueldo));
-            if(ret==1)
+
+            printf("desea continuar? y/n\n");
+            fflush(stdin);
+            scanf("%c",&respuesta);
+
+            while(respuesta!= 'y' && respuesta!='n')
+            {
+                printf("ingrese un caracter valido y/n\n");
+                fflush(stdin);
+                scanf("%c",&respuesta);
+            }
+
+            if(respuesta=='y')
+            {
+                ret=employee_setSueldo(pAux,atoi(sueldo));
+                ll_push(pArrayListEmployee,index,pAux);
+            }
+            else
             {
                 ll_push(pArrayListEmployee,index,pAux);
+                ret=0;
             }
             break;
         case 4:
@@ -217,7 +269,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
             {
                 pAux=employee_new();
 
-                pAux=ll_pop(pArrayListEmployee,i);
+                pAux=(Employee*) ll_get(pArrayListEmployee,i);
 
                 index=i;
                 break;
@@ -226,20 +278,29 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 
         controller_ListOneEmployee(pAux);
 
-        opcion=getChar("desea eliminar este dato? y/n\n","ingrese un caracter valido ");
+        printf("desea eliminar este dato? y/n\n");
+        fflush(stdin);
+        scanf("%c",&opcion);
+
+        while(opcion!= 'y' && opcion!='n')
+        {
+            printf("ingrese un caracter valido y/n\n");
+            fflush(stdin);
+            scanf("%c",&opcion);
+        }
 
         if(opcion=='y')
         {
-            ll_remove(pArrayListEmployee,index);
             employee_delete(pAux);
+            ll_remove(pArrayListEmployee,index);
             ret=1;
         }
-        if(opcion=='n')
+        else if(opcion=='n')
         {
-            ll_push(pArrayListEmployee,index,pAux);
             ret=0;
         }
     }
+
     return ret;
 }
 
@@ -287,22 +348,22 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     int ret=-1;
 
     listaAux=ll_clone(pArrayListEmployee);
+
     if(pArrayListEmployee!=NULL)
     {
 
         printf("de que modo quiere ordenarlo ascendiente(1) o descendiente(0) ");
         orden=getInt("ingrese un orden valido");
 
-        /*while(orden!=1 && orden!=0)
+        while(orden!=1 && orden!=0)
         {
             printf("de que modo quiere ordenarlo ascendiente(1) o descendiente(0)");
             orden=getInt("ingrese un orden valido");
-        }*/
+        }
 
         if(orden==1)
         {
-            printf("%d",orden);
-            ll_sort(listaAux,compararSueldos,orden);
+            ll_sort(listaAux, compararSueldos,orden);
             controller_ListEmployee(listaAux);
             ret=1;
         }
@@ -327,7 +388,39 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE* pArchivo;
+    int i;
+    Employee* pAux;
+    int len;
+    int ret=-1;
+    int* id;
+    char nombre[128];
+    int* horas;
+    int* sueldo;
+
+    pArchivo=fopen(path,"w");
+
+    if(pArchivo!=NULL && pArrayListEmployee!=NULL)
+    {
+        len=ll_len(pArrayListEmployee);
+
+        for(i=0;i<len;i++)
+        {
+            pAux=(Employee*) ll_get(pArrayListEmployee,i);
+
+            if(pAux!=NULL)
+            {
+                employee_getId(pAux,&id);
+                employee_getNombre(pAux,nombre);
+                employee_getHorasTrabajadas(pAux,&horas);
+                employee_getSueldo(pAux,&sueldo);
+                fprintf(pArchivo," %d, %s, %d, %d\n",id,nombre,horas,sueldo);
+                ret=1;
+            }
+        }
+    }
+    fclose(pArchivo);
+    return ret;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
@@ -339,7 +432,30 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE* pArchivo;
+    int i;
+    Employee* pAux;
+    int len;
+    int ret=-1;
+    int cantidad;
+
+    pArchivo=fopen(path,"wb");
+
+    if(pArchivo!=NULL && pArrayListEmployee!=NULL)
+    {
+        len=ll_len(pArrayListEmployee);
+
+        rewind(pArchivo);
+
+        for(i=0;i<len;i++)
+        {
+            pAux=(Employee*) ll_get(pArrayListEmployee,i);
+            cantidad=fwrite(pAux,sizeof(Employee),1,pArchivo);
+            ret=1;
+        }
+    }
+    pclose(pArchivo);
+    return ret;
 }
 
 int menu()
@@ -468,13 +584,14 @@ char getChar(char mensaje[],char error[])
     printf("%s",mensaje);
     fflush(stdin);
     scanf("%s",buffer);
-    while(esLetra(buffer)==-1 && buffer!='y' && buffer!='n')
+    while(esLetra(buffer)==-1)
     {
         printf("%s",error);
         fflush(stdin);
         scanf("%s",buffer);
     }
     auxiliar=buffer;
+
     return auxiliar;
 }
 
