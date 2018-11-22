@@ -235,7 +235,7 @@ int ll_set(LinkedList* this, int index,void* pElement)
  * \param this LinkedList* Puntero a la lista
  * \param nodeIndex int Ubicacion del elemento a eliminar
  * \return int Retorna  (-1) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
-                        ( 0) Si funciono correctamente
+                  7      ( 0) Si funciono correctamente
  *
  */
 int ll_remove(LinkedList* this,int index)
@@ -243,6 +243,8 @@ int ll_remove(LinkedList* this,int index)
     int returnAux = -1;
     int len;
     Node* pNodo;
+    Node* pNode;
+    int i;
 
     if(this!=NULL)
     {
@@ -250,8 +252,23 @@ int ll_remove(LinkedList* this,int index)
         if(index>=0 && index<len)
         {
             pNodo=getNode(this,index);
-            free(pNodo);
-            returnAux=0;
+            if(index==0)
+            {
+                this->pFirstNode=this->pFirstNode->pNextNode;
+                this->size=len;
+                free(pNodo->pElement);
+                free(pNodo);
+                returnAux=0;
+            }
+            else
+            {
+                pNode=getNode(this,index-1);
+                pNode->pNextNode=pNodo->pNextNode;
+                free(pNodo->pElement);
+                free(pNodo);
+                this->size=len-1;
+                returnAux=0;
+            }
         }
     }
 
@@ -269,6 +286,20 @@ int ll_remove(LinkedList* this,int index)
 int ll_clear(LinkedList* this)
 {
     int returnAux = -1;
+    int i;
+    Node* pNodo;
+    int len;
+
+    if(this!=NULL)
+    {
+        len=ll_len(this);
+        for(i=0;i<len;i++)
+        {
+            pNodo=getNode(this,i);
+            free(pNodo);
+            returnAux=0;
+        }
+    }
 
     return returnAux;
 }
@@ -285,6 +316,12 @@ int ll_deleteLinkedList(LinkedList* this)
 {
     int returnAux = -1;
 
+    if(this!=NULL)
+    {
+        free(this);
+        returnAux=0;
+    }
+
     return returnAux;
 }
 
@@ -299,6 +336,22 @@ int ll_deleteLinkedList(LinkedList* this)
 int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
+    int len;
+    Node* pNodo;
+    int i;
+
+    if(this!=NULL)
+    {
+        len=ll_len(this);
+        for(i=0;i<len;i++)
+        {
+            pNodo=getNode(this,i);
+            if(pNodo->pElement==pElement)
+            {
+                returnAux=i;
+            }
+        }
+    }
 
     return returnAux;
 }
