@@ -53,6 +53,7 @@ void popTestCase02(void)
 
     list = ll_newLinkedList();
     ll_add(list,pElement2);
+
     pElement = ll_pop(list,0);
     utest_assertEqualsPointerMsg(pElement,pElement2,"\nError en el valor de retorno de <pop> al solicitar el primer elemento\n");
     utest_assertEqualsIntMsg(ll_len(list),0,"\nError en el len() de la lista luego de quitar un elemento");
