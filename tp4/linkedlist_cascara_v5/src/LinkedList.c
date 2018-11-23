@@ -66,7 +66,7 @@ static Node* getNode(LinkedList* this, int nodeIndex)
         {
             pNode=this->pFirstNode;
 
-            for(i=0;i<nodeIndex;i++)
+            for(i=0; i<nodeIndex; i++)
             {
                 pNode=pNode->pNextNode;
             }
@@ -215,15 +215,22 @@ void* ll_get(LinkedList* this, int index)
 int ll_set(LinkedList* this, int index,void* pElement)
 {
     int returnAux = -1;
+    Node* pNodo=NULL;
     int len;
 
-    if(this!=NULL)
+    if(this != NULL && index >= 0)
     {
         len=ll_len(this);
-        if(index>=0 && index<len)
+        if(index < len && len > 0)
         {
-            returnAux=addNode(this,index,pElement);
+            pNodo=getNode(this,index);
+            if(pNodo!=NULL)
+            {
+                pNodo->pElement=pElement;
+                returnAux=0;
+            }
         }
+
     }
 
     return returnAux;
@@ -292,7 +299,7 @@ int ll_clear(LinkedList* this)
     if(this!=NULL)
     {
         len=ll_len(this);
-        for(i=0;i<len;i++)
+        for(i=0; i<len; i++)
         {
             pNodo=getNode(this,i);
             free(pNodo);
@@ -342,7 +349,7 @@ int ll_indexOf(LinkedList* this, void* pElement)
     if(this!=NULL)
     {
         len=ll_len(this);
-        for(i=0;i<len;i++)
+        for(i=0; i<len; i++)
         {
             pNodo=getNode(this,i);
             if(pNodo->pElement==pElement)
@@ -428,8 +435,6 @@ void* ll_pop(LinkedList* this,int index)
 {
     void* returnAux = NULL;
     int len;
-    Node* pNodo;
-    Node* pNode;
 
     if(this!=NULL)
     {
@@ -456,6 +461,21 @@ void* ll_pop(LinkedList* this,int index)
 int ll_contains(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
+    int index;
+
+    if(this!=NULL)
+    {
+        index=ll_indexOf(this,pElement);
+
+        if(index!=-1)
+        {
+            returnAux=1;
+        }
+        else
+        {
+            returnAux=0;
+        }
+    }
 
     return returnAux;
 }
@@ -472,6 +492,26 @@ int ll_contains(LinkedList* this, void* pElement)
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
+    int i;
+    void* pElemento;
+    int len2;
+    int contenido;
+
+    if(this!=NULL && this2!=NULL)
+    {
+        returnAux=1;
+        len2=ll_len(this2);
+        for(i=0; i<len2; i++)
+        {
+            pElemento=ll_get(this2,i);
+            contenido=ll_contains(this,pElemento);
+            if(contenido==0)
+            {
+                returnAux=0;
+                break;
+            }
+        }
+    }
 
     return returnAux;
 }
@@ -489,6 +529,26 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
     LinkedList* cloneArray = NULL;
+    int len;
+    int i;
+    void* pElemento;
+
+    if(this!=NULL)
+    {
+        len=ll_len(this);
+        if(from>=0 && to>=0 && from<=to && to<=len)
+        {
+            cloneArray=ll_newLinkedList();
+            if(cloneArray!=NULL)
+            {
+                for(i=from; i<to; i++)
+                {
+                    pElemento=ll_get(this,i);
+                    ll_add(cloneArray,pElemento);
+                }
+            }
+        }
+    }
 
     return cloneArray;
 }
@@ -504,6 +564,24 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 LinkedList* ll_clone(LinkedList* this)
 {
     LinkedList* cloneArray = NULL;
+    int len;
+    int i;
+    void* pElemento;
+
+    if(this!=NULL)
+    {
+        len=ll_len(this);
+        cloneArray=ll_newLinkedList();
+        if(cloneArray!=NULL)
+        {
+            for(i=0; i<len; i++)
+            {
+                pElemento=ll_get(this,i);
+                ll_add(cloneArray,pElemento);
+            }
+        }
+    }
+
 
     return cloneArray;
 }
@@ -516,11 +594,40 @@ LinkedList* ll_clone(LinkedList* this)
  * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
                                 ( 0) Si ok
  */
-int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
+int ll_sort(LinkedList* this, int (*pFunc)(void*,void*), int order)
 {
-    int returnAux =-1;
+ int returnAux =-1;
+    void* pAux;
+    int len;
+
+    int i,j;
+
+    if( this != NULL && pFunc != NULL && order >= 0 && order <= 1)
+    {
+        len = ll_len(this);
+        for( i=0; i< len-1 ; i++)
+        {
+            for( j= i+1; j < len; j++)
+            {
+                if(order == 1 && pFunc(ll_get(this,i), ll_get(this,j)) > 0)
+                {
+                    pAux = ll_get(this,i);
+                    ll_set(this, i, ll_get(this, j));
+                    ll_set(this, j, pAux);
+                }
+                else if(order == 0 && pFunc(ll_get(this,i), ll_get(this,j)) < 0)
+                {
+                    //printf("%p--%p\n",ll_get(this, i),ll_get(this, j));
+                    pAux = ll_get(this,i);
+                    ll_set(this, i, ll_get(this, j));
+                    ll_set(this, j, pAux);
+                }
+            }
+        }
+
+        returnAux = 0;
+    }
 
     return returnAux;
-
 }
 
